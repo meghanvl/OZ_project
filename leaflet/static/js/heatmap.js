@@ -18,31 +18,31 @@ d3.csv("/data/noaa_storm_data.csv", function(data) {
   console.log(data[0]);
 });
 
-// var queue = d3.queue();
-
-// d3.csv("noaa_storm_data.csv").then(function(response) {
-
-//   console.log(response);
-
-//   response.forEach(function(data) {
-//     queue.defer(d3.csv, data);
-//     data.EVENT_ID = +data.EVENT_ID;
-//   });
-
   var coord1 = [];
-  var coord2 = [];
+  // var coord2 = [];
 
   for (var i = 0; i < data.length; i++) {
     var location = data[i].location;
 
     if (location) {
-      heatArray.push([location.coordinates[1], location.coordinates[0]]);
+      coord1.push([location.BEGIN_LAT[0], location.BEGIN_LON[1]]);
+      // coord2.push([location.END_LAT[0], location.END_LON[1]]);
+      console.log(coord1)
     }
   }
 
-  var heat = L.heatLayer(heatArray, {
-    radius: 20,
-    blur: 35
-  }).addTo(myMap);
+  // / Coordinates for each point to be used in the polyline
+var line = [
+  coord1,
+  ];
+// Create a polyline using the line coordinates and pass in some initial options
+L.polyline(line, {
+  color: "red"
+}).addTo(myMap);
+  
+  // var heat = L.heatLayer(coord1, {
+  //   radius: 20,
+  //   blur: 35
+  // }).addTo(myMap);
 
 // });
