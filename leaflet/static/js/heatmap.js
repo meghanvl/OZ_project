@@ -14,35 +14,87 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 
 // var data = "..//data/noaa_storm_data.csv";
 
-d3.csv("/data/noaa_storm_data.csv", function(data) {
-  console.log(data[0]);
-});
+var coord1 = [];
+// var coord2 = [];
 
-// var queue = d3.queue();
+d3.csv("static/js/noaa_storm_data.csv").then(function(tornado, err) {
+  if (err) throw err;
+    // parse data
+    tornado.forEach(function(data) {
+      data.BEGIN_LAT = +data.BEGIN_LAT;
+      data.BEGIN_LON = +data.BEGIN_LON;
+      data.END_LAT = +data.END_LAT;
+      data.END_LON = +data.END_LON;
+      console.log(data.BEGIN_LAT)
+      var line = [
+      [data.BEGIN_LAT, data.BEGIN_LON],
+      [data.END_LAT, data.END_LON] 
+      ];
+      L.polyline(line, {
+        color: "purple"
+      }).addTo(myMap);
+      // L.marker([data.BEGIN_LAT, data.BEGIN_LON]).addTo(myMap);
+    // var markers = L.marker([data.BEGIN_LAT, data.BEGIN_LON]).addTo(myMap);
+    // var begin = L.marker([data.BEGIN_LAT, data.BEGIN_LON]).addTo(myMap);
+    // markers.addLayer(L.marker([data.BEGIN_LAT, data.BEGIN_LON]));
+    // myMap.addLayer(markers);
+    });
+  });
+    
+  // var firstLat = {};
+  // for (var i = 0; i < tornado.length; i++) {
+  //   firstLat.push(tornado[i].BEGIN_LAT)}; 
+  //   console.log(firstLat);
+  // });
+  
 
-// d3.csv("noaa_storm_data.csv").then(function(response) {
 
-//   console.log(response);
+  // d3.csv("static/js/noaa_storm_data.csv", function(data) {
+  // {BEGIN_LAT: [], BEGIN_LON:[]}
+  // // [{lat:value,lon:value},{}]
+  // data.BEGIN_LAT.forEach(function(lat) { 
 
-//   response.forEach(function(data) {
-//     queue.defer(d3.csv, data);
-//     data.EVENT_ID = +data.EVENT_ID;
-//   });
 
-  var coord1 = [];
-  var coord2 = [];
+  // for (var i = 0; i < data.length; i++) {
+  //   var location = [data[i].BEGIN_LAT, data[i].BEGIN_LON];
+  //   console.log(location)
+    
 
-  for (var i = 0; i < data.length; i++) {
-    var location = data[i].location;
+  //   // console.log(data[i])
+    
 
-    if (location) {
-      heatArray.push([location.coordinates[1], location.coordinates[0]]);
-    }
-  }
+  //   if (location) {
+      
+  //     console.log(location)
+  //   }
 
-  var heat = L.heatLayer(heatArray, {
-    radius: 20,
-    blur: 35
-  }).addTo(myMap);
-
+      // .bindPopup(response[i].name));
+      // console.log(+location.split(",",2),+location.split(",",1))
+    // }
+      
+   // Add our marker cluster layer to the map
+    
+      // coord1.push(location);
+      // coord2.push([location.END_LAT[0], location.END_LON[1]]);
+      // L.marker([+location.split(",")[0],+location.split(",")[1]]).addTo(myMap);
+      // console.log(coord1)
+//     }
+    
 // });
+
+
+  // / Coordinates for each point to be used in the polyline
+  // console.log(coord1)
+// var line = [
+//   coord1
+  // ];
+// Create a polyline using the line coordinates and pass in some initial options
+// L.polyline(line, {
+//   color: "red"
+// }).addTo(myMap);
+  
+  // var heat = L.heatLayer(coord1, {
+  //   radius: 20,
+  //   blur: 35
+  // }).addTo(myMap);
+
