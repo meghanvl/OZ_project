@@ -26,6 +26,7 @@ d3.csv("static/js/noaa_storm_data.csv").then(function(tornado, err) {
       const coord1 = [data.BEGIN_LAT, data.BEGIN_LON];
       const coord2 = [data.END_LAT, data.END_LON];
 
+
       const tornadoMark = L.ExtraMarkers.icon({
         icon: "ion-ios-thunderstorm",
         iconColor: "white",
