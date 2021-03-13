@@ -1,6 +1,6 @@
 var myMap = L.map("map", {
-  center: [37.0902, -95.7129],
-  zoom: 5
+  center: [36.1717, -86.9562],
+  zoom: 10
 });
 
 L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
@@ -12,7 +12,6 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
   accessToken: API_KEY
 }).addTo(myMap);
 
-
 d3.csv("static/js/noaa_storm_data.csv").then(function(tornado, err) {
   if (err) throw err;
     // parse data
@@ -21,8 +20,8 @@ d3.csv("static/js/noaa_storm_data.csv").then(function(tornado, err) {
       data.BEGIN_LON = +data.BEGIN_LON;
       data.END_LAT = +data.END_LAT;
       data.END_LON = +data.END_LON;
-      
 
+      
       const coord1 = [data.BEGIN_LAT, data.BEGIN_LON];
       const coord2 = [data.END_LAT, data.END_LON];
 
