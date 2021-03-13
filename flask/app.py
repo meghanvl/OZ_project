@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import numpy as np
 import sqlalchemy
 import datetime as dt
@@ -6,6 +7,30 @@ from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
 
 from flask import Flask, jsonify
+=======
+import sqlalchemy
+import os
+from sqlalchemy.ext.automap import automap_base
+from sqlalchemy.orm import Session
+from sqlalchemy import create_engine, func
+from flask import (
+    Flask,
+    render_template,
+    jsonify,
+    request,
+    redirect)
+
+app = Flask(__name__)
+
+from flask_sqlalchemy import SQLAlchemy
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', '') or "sqlite:///Tornado_data.sqlite"
+
+# Remove tracking modifications
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+
+>>>>>>> c943e5883494f5c9e2558f090c58332beda7cfa9
 
 engine = create_engine("sqlite:///Tornado_data.sqlite")
 
@@ -15,6 +40,7 @@ Base.prepare(engine, reflect=True)
 
 Tornadoes = Base.classes.tornadoes
 
+<<<<<<< HEAD
 app = Flask(__name__)
 
 
@@ -43,26 +69,60 @@ def precipitation():
     
     #retrieve date and prcp data and display in dictionary
     results = session.query(Tornadoes.BEGIN_LOCATION, Tornadoes.END_LOCATION, Tornadoes.BEGIN_DATE).all()
+=======
+
+
+# index route, return index template
+@app.route("/")
+def index():
+    
+    return render_template("index.html")
+
+
+# location route
+@app.route("/locations")
+def locations():
+    
+    session = Session(engine)
+   
+    results = session.query(Tornadoes.BEGIN_DATE, Tornadoes.BEGIN_LOCATION, Tornadoes.END_LOCATION, Tornadoes.STATE_ABBR).all()
+>>>>>>> c943e5883494f5c9e2558f090c58332beda7cfa9
     
     session.close()
     
     locations = []
     for row in results:
         location_dict = {}
+<<<<<<< HEAD
         location_dict["Begin Location"] = row.BEGIN_LOCATION
         location_dict["End Location"] = row.END_LOCATION   
         location_dict["Date"] = row.BEGIN_DATE 
+=======
+        location_dict["Date"] = row.BEGIN_DATE 
+        location_dict["Begin Location"] = row.BEGIN_LOCATION
+        location_dict["End Location"] = row.END_LOCATION   
+        location_dict["State"] = row.STATE_ABBR
+>>>>>>> c943e5883494f5c9e2558f090c58332beda7cfa9
         locations.append(location_dict)
 
     return jsonify(locations)
 
+<<<<<<< HEAD
 @app.route("/api/v1.0/damages")
+=======
+
+# damages route
+@app.route("/damages")
+>>>>>>> c943e5883494f5c9e2558f090c58332beda7cfa9
 def damages():
     
     session = Session(engine)
    
+<<<<<<< HEAD
     
     #retrieve date and prcp data and display in dictionary
+=======
+>>>>>>> c943e5883494f5c9e2558f090c58332beda7cfa9
     results = session.query(Tornadoes.TOR_F_SCALE, Tornadoes.TOR_LENGTH, Tornadoes.TOR_WIDTH, Tornadoes.DEATHS_DIRECT, Tornadoes.INJURIES_DIRECT, Tornadoes.DAMAGE_PROPERTY_NUM, Tornadoes.DAMAGE_CROPS_NUM).all()
     
     session.close()
@@ -71,16 +131,26 @@ def damages():
     for row in results:
         damages_dict = {}
         damages_dict["F Scale"] = row.TOR_F_SCALE
+<<<<<<< HEAD
         damages_dict["Tornado Length"] = row.TOR_LENGTH
         damages_dict["Tornado Width"] = row.TOR_WIDTH
         damages_dict["Direct Deaths"] = row.DEATHS_DIRECT   
         damages_dict["Direct Injuries"] = row.INJURIES_DIRECT 
         damages_dict["Number of Properties Damaged"] = row.DAMAGE_PROPERTY_NUM
         damages_dict["Number of Crops Damaged"] = row.DAMAGE_CROPS_NUM
+=======
+        damages_dict["Tornado Length (Miles)"] = row.TOR_LENGTH
+        damages_dict["Tornado Width (Feet)"] = row.TOR_WIDTH
+        damages_dict["Direct Deaths"] = row.DEATHS_DIRECT   
+        damages_dict["Direct Injuries"] = row.INJURIES_DIRECT 
+        damages_dict["Properties Damaged ($)"] = row.DAMAGE_PROPERTY_NUM
+        damages_dict["Crops Damaged ($)"] = row.DAMAGE_CROPS_NUM
+>>>>>>> c943e5883494f5c9e2558f090c58332beda7cfa9
         damages.append(damages_dict)
 
     return jsonify(damages)
 
+<<<<<<< HEAD
 #3. Return a JSON list of stations from the dataset.
 
 # @app.route("/api/v1.0/stations")
@@ -214,5 +284,21 @@ def start_end(start, end):
    
     
    
+=======
+# plot route, return plotly template
+@app.route("/plot")
+def plot():
+    
+    return render_template("plotly.html")
+
+
+# map route, return newLeaflet template
+@app.route("/map")
+def map():
+    
+    return render_template("newLeaflet.html")
+
+    
+>>>>>>> c943e5883494f5c9e2558f090c58332beda7cfa9
 if __name__ == "__main__":
     app.run(debug=True)
