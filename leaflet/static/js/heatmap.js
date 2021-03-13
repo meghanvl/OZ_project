@@ -1,6 +1,6 @@
 var myMap = L.map("map", {
-  center: [37.0902, -95.7129],
-  zoom: 5
+  center: [36.1717, -86.9562],
+  zoom: 10
 });
 
 L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
@@ -35,6 +35,26 @@ d3.csv("static/js/noaa_storm_data.csv").then(function(tornado, err) {
       ], { snakingPause: 200 });
       route.addTo(myMap).snakeIn();
 
+      // makeWeatherIcon(icon, markerColor = "red", iconColor = "white",
+      // extraClasses = NULL)
+      // weatherIcons(icon, markerColor = "red", iconColor = "white",
+      // extraClasses = NULL)
+      // iconSet = weatherIconList(
+      // tornado = makeWeatherIcon(icon = "tornado")
+      // )
+  
+      // iconSet[c("tornado")]
+      // // leaflet() %>%
+      // //   addTiles() %>%
+      //   addWeatherMarkers(
+      //     coord1, coord2,
+      //     label = "This is a label",
+      //     icon = makeWeatherIcon(
+      //       icon = "hot",
+      //       iconColor = "#ffffff77",
+      //       markerColor = "blue"
+        //   )
+        // )
     });
   });
     
