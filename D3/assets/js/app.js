@@ -1,10 +1,10 @@
 //SVG size and padding
-const svgWidth = 1200;
+const svgWidth = 960;
 const svgHeight = 600;
 const margin = {
-  top: 50,
-  right: 50,
-  bottom: 90,
+  top: 20,
+  right: 40,
+  bottom: 80,
   left: 120
 };
 var width = svgWidth - margin.left - margin.right;
@@ -29,8 +29,8 @@ var selectYAxis = "DEATHS_DIRECT";
 function xScale(tornData, selectXAxis) {
  
   var xLinearScale = d3.scaleLinear()
-    .domain([d3.min(tornData, d => d[selectXAxis]) * 0.8,
-      d3.max(tornData, d => d[selectXAxis]) * 1.2
+    .domain([d3.min(tornData, d => d[selectXAxis]) * 1,
+      d3.max(tornData, d => d[selectXAxis] * 1.8) 
     ])
     .range([0, width]);
   return xLinearScale;
@@ -102,22 +102,22 @@ function updateToolTip(selectXAxis, selectYAxis, textGroup) {
   var xlabel;
   var ylabel;
   if (selectXAxis === "TOR_F_SCALE") {
-    xlabel = "TOR_F_SCALE";
+    xlabel = "F-Scale:";
   }
   else if (selectXAxis === "TOR_WIDTH") {
-    xlabel = "TOR_WIDTH:";
+    xlabel = "Tornado Width (feet):";
   }
   else {
-    xlabel = "TOR_LENGTH:";
+    xlabel = "Tornado Length (miles):";
   }
   if (selectYAxis === "DEATHS_DIRECT") {
-    ylabel = "DEATHS_DIRECT:";
+    ylabel = "Number of Deaths:";
   }
   else if (selectYAxis === "INJURIES_DIRECT") {
-    ylabel = "INJURIES_DIRECT:";
+    ylabel = "Number of Injuries";
   }
   else {
-    ylabel = "DAMAGE_PROPERTY_NUM:";
+    ylabel = "Property Damage Value (mil):";
   }
   var toolTip = d3.tip()
   .attr("class", "d3-tip")
@@ -187,7 +187,8 @@ d3.csv("assets/data/noaa_storm_data.csv").then(function(tornData, err) {
   .attr("y", d => yLinearScale(d[selectYAxis]))
   .attr("dy", "1")
   .text(d => d.STATE_ABBR)
-  .attr("class", "stateText");
+  .attr("class", "stateText")
+  .attr("font-size", "12px");
 
 // Create group for two x-axis labels
   var xlabelsGroup = chartData.append("g")
@@ -198,21 +199,21 @@ d3.csv("assets/data/noaa_storm_data.csv").then(function(tornData, err) {
   .attr("y", 20)
   .attr("value", "TOR_F_SCALE") // value for event listener
   .classed("active", true)
-  .text("TOR_F_SCALE");
+  .text("F-Scale");
 
   var TOR_WIDTHLabel = xlabelsGroup.append("text")
   .attr("x", 0)
   .attr("y", 40)
   .attr("value", "TOR_WIDTH") // value for event listener
   .classed("inactive", true)
-  .text("TOR_WIDTH");
+  .text("Width (feet)");
 
   var TOR_LENGTHLabel = xlabelsGroup.append("text")
   .attr("x", 0)
   .attr("y", 60)
   .attr("value", "TOR_LENGTH") //value for event listener
   .classed("inactive", true)
-  .text("TOR_LENGTH");
+  .text("Length (miles)");
 
 // Create group for three y-axis labels
    var ylabelsGroup = chartData.append("g")
@@ -224,7 +225,7 @@ d3.csv("assets/data/noaa_storm_data.csv").then(function(tornData, err) {
    .attr("dy", "1em")
    .attr("value", "DEATHS_DIRECT") // value for event listener
    .classed("active", true)
-   .text("DEATHS_DIRECT");
+   .text("Num. of Deaths");
   
    var INJURIES_DIRECTLabel = ylabelsGroup.append("text")
    .attr("y", 0 - margin.left)
@@ -232,7 +233,7 @@ d3.csv("assets/data/noaa_storm_data.csv").then(function(tornData, err) {
    .attr("dy", "2em")
    .attr("value", "INJURIES_DIRECT") // value for event listener
    .classed("inactive", true)
-   .text("INJURIES_DIRECT");
+   .text("Num. of Injuries");
   
   var DAMAGE_PROPERTY_NUMLabel = ylabelsGroup.append("text")
    .attr("y", 0 - margin.left)
@@ -240,7 +241,7 @@ d3.csv("assets/data/noaa_storm_data.csv").then(function(tornData, err) {
    .attr("dy", "3em")
    .attr("value", "DAMAGE_PROPERTY_NUM") // value for event listener
    .classed("inactive", true)
-   .text("DAMAGE_PROPERTY_NUM");
+   .text("Value of Property Damage (mil)");
 
 // updating ToolTip function 
   var textGroup = updateToolTip(selectXAxis, selectYAxis, textGroup);
