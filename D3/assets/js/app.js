@@ -29,8 +29,8 @@ var selectYAxis = "DEATHS_DIRECT";
 function xScale(tornData, selectXAxis) {
  
   var xLinearScale = d3.scaleLinear()
-    .domain([d3.min(tornData, d => d[selectXAxis]) * 1,
-      d3.max(tornData, d => d[selectXAxis]) * 1
+    .domain([d3.min(tornData, d => d[selectXAxis]) * 0.8,
+      d3.max(tornData, d => d[selectXAxis]) * 1.2
     ])
     .range([0, width]);
   return xLinearScale;
@@ -101,8 +101,8 @@ function yrenderText(textGroup, newYScale, selectYAxis) {
 function updateToolTip(selectXAxis, selectYAxis, textGroup) {
   var xlabel;
   var ylabel;
-  if (selectXAxis === "F_SCALE") {
-    xlabel = "F_SCALE";
+  if (selectXAxis === "TOR_F_SCALE") {
+    xlabel = "TOR_F_SCALE";
   }
   else if (selectXAxis === "TOR_WIDTH") {
     xlabel = "TOR_WIDTH:";
@@ -141,7 +141,7 @@ return textGroup;
 d3.csv("assets/data/noaa_storm_data.csv").then(function(tornData, err) {
   if (err) throw err;
   tornData.forEach(function(data) {
-    data.F_SCALE = +data.F_SCALE;
+    data.TOR_F_SCALE = +data.TOR_F_SCALE;
     data.TOR_WIDTH = +data.TOR_WIDTH;
     data.income = +data.income;
     data.DEATHS_DIRECT = +data.DEATHS_DIRECT;
@@ -178,14 +178,14 @@ d3.csv("assets/data/noaa_storm_data.csv").then(function(tornData, err) {
   .append("circle")
   .attr("cx", d => xLinearScale(d[selectXAxis]))
   .attr("cy", d => yLinearScale(d[selectYAxis]))
-  .attr("r", "15")
+  .attr("r", "12")
   .attr("class", "stateCircle");
   
   var textGroup = circlesTextGroup
   .append("text")
   .attr("x", d => xLinearScale(d[selectXAxis]))
   .attr("y", d => yLinearScale(d[selectYAxis]))
-  .attr("dy", "3")
+  .attr("dy", "1")
   .text(d => d.STATE_ABBR)
   .attr("class", "stateText");
 
@@ -193,12 +193,12 @@ d3.csv("assets/data/noaa_storm_data.csv").then(function(tornData, err) {
   var xlabelsGroup = chartData.append("g")
   .attr("transform", `translate(${width / 2}, ${height + 20})`);
 
-  var F_SCALELabel = xlabelsGroup.append("text")
+  var TOR_F_SCALELabel = xlabelsGroup.append("text")
   .attr("x", 0)
   .attr("y", 20)
-  .attr("value", "F_SCALE") // value for event listener
+  .attr("value", "TOR_F_SCALE") // value for event listener
   .classed("active", true)
-  .text("F_SCALE");
+  .text("TOR_F_SCALE");
 
   var TOR_WIDTHLabel = xlabelsGroup.append("text")
   .attr("x", 0)
@@ -207,7 +207,7 @@ d3.csv("assets/data/noaa_storm_data.csv").then(function(tornData, err) {
   .classed("inactive", true)
   .text("TOR_WIDTH");
 
-  var incomeLabel = xlabelsGroup.append("text")
+  var TOR_LENGTHLabel = xlabelsGroup.append("text")
   .attr("x", 0)
   .attr("y", 60)
   .attr("value", "TOR_LENGTH") //value for event listener
@@ -269,8 +269,8 @@ textGroup = xrenderText(textGroup, xLinearScale, selectXAxis)
 
 // updates tooltips with new info
 textGroup = updateToolTip(selectXAxis, selectYAxis, textGroup);
-if (selectXAxis === "F_SCALE") {
-  F_SCALELabel
+if (selectXAxis === "TOR_F_SCALE") {
+  TOR_F_SCALELabel
     .classed("active", true)
     .classed("inactive", false);
   TOR_WIDTHLabel
@@ -284,7 +284,7 @@ else if (selectXAxis === "TOR_WIDTH") {
   TOR_WIDTHLabel
     .classed("active", true)
     .classed("inactive", false);
-  F_SCALELabel
+  TOR_F_SCALELabel
     .classed("active", false)
     .classed("inactive", true);
   TOR_LENGTHLabel
@@ -295,7 +295,7 @@ else {
   TOR_LENGTHLabel
     .classed("active", true)
     .classed("inactive", false);
-  F_SCALELabel
+  TOR_F_SCALELabel
     .classed("active", false)
     .classed("inactive", true);
   TOR_WIDTHLabel
