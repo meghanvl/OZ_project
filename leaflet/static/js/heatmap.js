@@ -30,10 +30,23 @@ d3.csv("static/js/noaa_storm_data.csv").then(function(tornado, err) {
       [data.BEGIN_LAT, data.BEGIN_LON],
       [data.END_LAT, data.END_LON] 
       ];
-      L.polyline(line, {
-        color: "purple"
-      }).addTo(myMap);
-      // L.marker([data.BEGIN_LAT, data.BEGIN_LON]).addTo(myMap);
+      // L.polyline(line, {
+      //   color: "purple"
+      // }).addTo(myMap);
+
+
+      antPolyline = L.polyline.antPath([data.BEGIN_LAT, data.BEGIN_LON], "purple");
+    
+    antPolyline.addTo(myMap);
+
+      // var route = L.layerGroup([
+      //   L.marker(data.BEGIN_LAT),
+      //   L.polyline([data.BEGIN_LAT, data.BEGIN_LON]),
+      //   L.marker(data.BEGIN_LON)
+      // ], { snakingPause: 200 });
+      // route.addTo(myMap).snakeIn();
+
+    // L.marker([data.BEGIN_LAT, data.BEGIN_LON]).addTo(myMap);
     // var markers = L.marker([data.BEGIN_LAT, data.BEGIN_LON]).addTo(myMap);
     // var begin = L.marker([data.BEGIN_LAT, data.BEGIN_LON]).addTo(myMap);
     // markers.addLayer(L.marker([data.BEGIN_LAT, data.BEGIN_LON]));
