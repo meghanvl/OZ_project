@@ -85,20 +85,17 @@ d3.csv("static/js/noaa_storm_data.csv").then(function(tornado) {
           shape: "circle"
         });
 
-        // NOTE: newMarker was added to map and not layers.Current_Weather
+
         const newMarker = L.marker([CityData.Lat, CityData.Lng], {icon: weatherMark})
         newMarker.addTo(layers.Current_Weather);
 
         newMarker.bindPopup("<b></h3>City: " + CityData.City + "</h3><hr>Latitude: " + CityData.Lat + "</h3><hr>Longitude: " + CityData.Lng +
         "</h3><hr>Cloudiness: " + CityData.Cloudiness + "</h3><hr>Humidity: " + CityData.Humidity + "</h3><hr>Max Temperature: " + CityData.Max_Temp +
-        "</h3><hr>Wind Speed: " + CityData.Wind_Speed);
+        "</h3><hr>Wind Speed: " + CityData.Wind_Speed).addTo(myMap);
 
       });
 
-
-
   });
-
 
 });
 

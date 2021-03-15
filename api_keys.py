@@ -1,1 +1,0 @@
-weather_key = "8e617fac93c5b0b18719cc55fdd3a9b3"
