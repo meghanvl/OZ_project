@@ -73,7 +73,7 @@ def damages():
     damages = []
     for row in results:
         damages_dict = {}
-        damages_dict["F Scale"] = row.TOR_F_SCALE
+        damages_dict["EF Scale"] = row.TOR_F_SCALE
         damages_dict["Tornado Length (Miles)"] = row.TOR_LENGTH
         damages_dict["Tornado Width (Feet)"] = row.TOR_WIDTH
         damages_dict["Direct Deaths"] = row.DEATHS_DIRECT   

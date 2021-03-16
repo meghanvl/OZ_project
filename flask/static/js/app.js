@@ -48,7 +48,7 @@ function yScale(tornData, selectYAxis) {
 
 // function for updating xAxis & yAxis var upon click on axis label
 function renderXAxis(newXScale, xAxis) {
-  var bottomAxis = d3.axisBottom(newXScale);
+  var bottomAxis = d3.axisBottom(newXScale).tickPadding(15);
   xAxis.transition()
     .duration(1000)
     .call(bottomAxis);
@@ -102,7 +102,7 @@ function updateToolTip(selectXAxis, selectYAxis, textGroup) {
   var xlabel;
   var ylabel;
   if (selectXAxis === "TOR_F_SCALE") {
-    xlabel = "F-Scale:";
+    xlabel = "EF-Scale:";
   }
   else if (selectXAxis === "TOR_WIDTH") {
     xlabel = "Tornado Width (feet):";
@@ -199,7 +199,7 @@ d3.csv("static/data/noaa_storm_data.csv").then(function(tornData, err) {
   .attr("y", 20)
   .attr("value", "TOR_F_SCALE") // value for event listener
   .classed("active", true)
-  .text("F-Scale");
+  .text("EF-Scale");
 
   var TOR_WIDTHLabel = xlabelsGroup.append("text")
   .attr("x", 0)
