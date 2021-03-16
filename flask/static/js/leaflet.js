@@ -13,7 +13,7 @@ var layers = {
 };
 
 var myMap = L.map("map", {
-  center: [36.1717, -86.9562],
+  center: [31.9406,-89.2971],
   zoom: 10,
   layers: [
     layers.Tornadoes,
@@ -34,7 +34,7 @@ const overlayMaps = {
 L.control.layers(baseMaps, overlayMaps).addTo(myMap); 
 
 
-d3.csv("static/js/noaa_storm_data.csv").then(function(tornado) {
+d3.csv("static/data/noaa_storm_data.csv").then(function(tornado) {
 
   tornado.forEach(function(TornadoData) {
     TornadoData.BEGIN_LAT = +TornadoData.BEGIN_LAT;
@@ -67,7 +67,7 @@ d3.csv("static/js/noaa_storm_data.csv").then(function(tornado) {
 
   
 
-  d3.csv("static/js/cities.csv").then(function(cities) {
+  d3.csv("static/data/cities.csv").then(function(cities) {
 
       cities.forEach(function(CityData) {
         CityData.Cloudiness = +CityData.Cloudiness;
@@ -88,6 +88,7 @@ d3.csv("static/js/noaa_storm_data.csv").then(function(tornado) {
 
         const newMarker = L.marker([CityData.Lat, CityData.Lng], {icon: weatherMark})
         newMarker.addTo(layers.Current_Weather);
+      
 
         newMarker.bindPopup("<b></h3>City: " + CityData.City + "</h3><hr>Latitude: " + CityData.Lat + "</h3><hr>Longitude: " + CityData.Lng +
         "</h3><hr>Cloudiness: " + CityData.Cloudiness + "</h3><hr>Humidity: " + CityData.Humidity + "</h3><hr>Max Temperature: " + CityData.Max_Temp +
@@ -95,7 +96,10 @@ d3.csv("static/js/noaa_storm_data.csv").then(function(tornado) {
 
       });
 
+
+
   });
+
 
 });
 

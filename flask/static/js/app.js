@@ -48,7 +48,7 @@ function yScale(tornData, selectYAxis) {
 
 // function for updating xAxis & yAxis var upon click on axis label
 function renderXAxis(newXScale, xAxis) {
-  var bottomAxis = d3.axisBottom(newXScale);
+  var bottomAxis = d3.axisBottom(newXScale).tickPadding(15);
   xAxis.transition()
     .duration(1000)
     .call(bottomAxis);

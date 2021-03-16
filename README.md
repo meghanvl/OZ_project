@@ -1,11 +1,11 @@
 
 # OZ_project:
 
-This Oz report will relay Tornado and weather information using OpenWeatherMap API and information from National Oceanic and Atmospheric Administration (NOAA) csv download of 500 tornadic event details from 11/01/2019 to 11/30/2020. The report will utilize HTML, CSS, Javascript and a created SQL database. 
+This Oz report will relay Tornado and weather information using OpenWeatherMap API and information from National Oceanic and Atmospheric Administration (NOAA) csv download of 500 tornadic event details from 11/01/2019 to 11/30/2020. The report will utilize HTML, CSS, Javascript, Leaflet, Flask and SQLite. 
 
-The report will include visualizations utilizing D3.js and Leaflet Heatmap. The d3 visualization will be an interactive scatter plot and will allow users to see choice of Tornado Magnitude or EF scale and resulting Damage, Injuries or Deaths. Leaflet Heatmap will display tornado location, size and EF scale. 
+The report will include visualizations utilizing D3.js and Leaflet. The d3 visualization will be an interactive scatter plot and will allow users to see choice of Tornado Magnitude or EF Scale and resulting Damage, Injuries or Deaths. The leaflet map will display tornado location, size and EF scale as well as current weather details. 
 
-Inspiration for Project Oz comes from the current Tornado Safety Week.  
+Inspiration for Project Oz comes from the recent Tornado Safety Week.  
 
 ## Group Members:
 Meghan Luoma,
