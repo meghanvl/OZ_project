@@ -102,7 +102,7 @@ function updateToolTip(selectXAxis, selectYAxis, textGroup) {
   var xlabel;
   var ylabel;
   if (selectXAxis === "TOR_F_SCALE") {
-    xlabel = "EF-Scale:";
+    xlabel = "F-Scale:";
   }
   else if (selectXAxis === "TOR_WIDTH") {
     xlabel = "Tornado Width (feet):";
@@ -199,7 +199,7 @@ d3.csv("static/data/noaa_storm_data.csv").then(function(tornData, err) {
   .attr("y", 20)
   .attr("value", "TOR_F_SCALE") // value for event listener
   .classed("active", true)
-  .text("EF-Scale");
+  .text("F-Scale");
 
   var TOR_WIDTHLabel = xlabelsGroup.append("text")
   .attr("x", 0)
