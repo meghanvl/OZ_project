@@ -34,7 +34,7 @@ const overlayMaps = {
 L.control.layers(baseMaps, overlayMaps).addTo(myMap); 
 
 
-d3.csv("static/js/noaa_storm_data.csv").then(function(tornado) {
+d3.csv("static/data/noaa_storm_data.csv").then(function(tornado) {
 
   tornado.forEach(function(TornadoData) {
     TornadoData.BEGIN_LAT = +TornadoData.BEGIN_LAT;
@@ -67,7 +67,7 @@ d3.csv("static/js/noaa_storm_data.csv").then(function(tornado) {
 
   
 
-  d3.csv("static/js/cities.csv").then(function(cities) {
+  d3.csv("static/data/cities.csv").then(function(cities) {
 
       cities.forEach(function(CityData) {
         CityData.Cloudiness = +CityData.Cloudiness;
@@ -95,7 +95,10 @@ d3.csv("static/js/noaa_storm_data.csv").then(function(tornado) {
 
       });
 
+
+
   });
+
 
 });
 
